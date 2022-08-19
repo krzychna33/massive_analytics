@@ -1,1 +1,82 @@
+version: "3.8"
 
+services:
+  flip-orders-service:
+    container_name: flip-orders-service
+    build:
+      context: flip-orders-service
+      target: dev
+    volumes:
+      - ./flip-orders-service/:/app
+      - /app/node_modules
+    ports:
+      - "3001:3000"
+      - "9229:9229"
+    networks:
+      - flip-network
+    depends_on:
+      - flip-redis-bus
+    command: /bin/sh entrypoint.sh
+
+  flip-analytics-service:
+    container_name: flip-analytics-service
+    build:
+      context: flip-analytics-service
+      target: dev
+    volumes:
+      - ./flip-analytics-service/:/app
+      - /app/node_modules
+    ports:
+      - "3002:3000"
+      - "9239:9229"
+    networks:
+      - flip-network
+    depends_on:
+      - flip-redis-bus
+      - flip-redis-storage
+      - flip-postgres-analytics-db
+    command: /bin/sh entrypoint.sh
+
+
+  flip-redis-bus:
+    container_name: flip-redis-bus
+    image: 'redis:alpine'
+    command: redis-server
+    ports:
+      - '6379:6379'
+    networks:
+      - flip-network
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - ./docker-data/redis-bus-data:/var/lib/redis
+
+  flip-redis-storage:
+    container_name: flip-redis-storage
+    image: 'redis:alpine'
+    command: redis-server
+    ports:
+      - '6389:6379'
+    networks:
+      - flip-network
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - ./docker-data/redis-storage-data:/var/lib/redis
+
+  flip-postgres-analytics-db:
+    image: postgres:14.2-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5438:5432'
+    networks:
+      - flip-network
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/
+      - ./docker-data/postgres:/var/lib/postgresql/data
+
+networks:
+  flip-network:

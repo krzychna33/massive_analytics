@@ -1,0 +1,4 @@
+export enum JobsEnum {
+  READ_ORDER_JOB = 'READ_ORDER_JOB',
+  NEW_ORDER_STREAM_JOB = 'NEW_ORDER_STREAM_JOB',
+}
