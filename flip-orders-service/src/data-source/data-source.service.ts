@@ -24,16 +24,13 @@ export class DataSourceService {
 
   public async fetchOrders({
     page = 1,
+
     limit = 10,
   }: { page?: number; limit?: number } = {}): Promise<OrderType[]> {
     const queryParams = new URLSearchParams({
       _page: `${page}`,
       _limit: `${limit}`,
     });
-
-    if (page > 9) {
-      return [];
-    }
 
     const response = await this.httpService.axiosRef.get(
       `${this.getBaseUrl()}/orders?${queryParams.toString()}`,

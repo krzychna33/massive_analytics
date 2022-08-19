@@ -25,6 +25,7 @@ export class OrdersService implements OnModuleInit {
     const numberOfLastReadPage = await this.redis.get(
       RedisStorageKeysEnum.LAST_READ_PAGE,
     );
+
     return numberOfLastReadPage ? Number(numberOfLastReadPage) : null;
   }
 
@@ -34,9 +35,7 @@ export class OrdersService implements OnModuleInit {
 
   async scheduleOrderRead() {
     const numberOfLastReadPage = await this.getNumberOfLastReadPage();
-    console.log(numberOfLastReadPage);
     const count = await this.ordersReadQueue.getActiveCount();
-    console.log(count);
     if (count > 0) {
       return;
     }
@@ -48,9 +47,9 @@ export class OrdersService implements OnModuleInit {
   }
 
   async addReadOrderJob(lastReadPage: number) {
-    console.log('Adding firt job..');
     await this.ordersReadQueue.add(
       JobsEnum.READ_ORDER_JOB,
+
       {
         startPage: lastReadPage + 1,
       },

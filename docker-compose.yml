@@ -71,11 +71,11 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
-      - '5438:5432'
+      - '5432:5432'
     networks:
       - flip-network
     volumes:
-      - ./db:/docker-entrypoint-initdb.d/
+      - ./database/:/docker-entrypoint-initdb.d/
       - ./docker-data/postgres:/var/lib/postgresql/data
 
 networks:

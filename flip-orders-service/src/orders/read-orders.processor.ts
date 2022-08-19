@@ -32,10 +32,6 @@ export class ReadOrdersProcessor {
       return this.ordersService.setNumberOfLastReadPage(job.data.startPage - 1);
     }
 
-    console.log(
-      `Fetched ${orders.length} for page number ${job.data.startPage}`,
-    );
-
     for (const order of orders) {
       await this.externalNewOrdersStreamQueue.add(
         JobsEnum.NEW_ORDER_STREAM_JOB,
@@ -43,7 +39,6 @@ export class ReadOrdersProcessor {
           order,
         },
       );
-      console.log('pushed to queue');
     }
 
     const nextPageOfOrders = await this.dataSourceService.fetchOrders({
