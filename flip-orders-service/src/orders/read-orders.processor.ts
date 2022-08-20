@@ -8,6 +8,7 @@ import { QueuesEnum } from '../common/consts/queues.enum';
 import { JobsEnum } from '../common/consts/jobs.enum';
 import { NewOrderStreamJobType } from '../common/types/new-order-stream-job.type';
 import { OrderReadJobDataType } from '../common/types/order-read-job-data.type';
+import { CustomLogger } from '../logger/custom.logger';
 
 @Processor(QueuesEnum.INTERNAL_ORDERS_READ_QUEUE)
 export class ReadOrdersProcessor {
@@ -19,6 +20,7 @@ export class ReadOrdersProcessor {
     private externalNewOrdersStreamQueue: Queue<NewOrderStreamJobType>,
     @InjectRedis() private readonly redis: Redis,
     private readonly ordersService: OrdersService,
+    private readonly logger: CustomLogger,
   ) {}
 
   @Process(JobsEnum.READ_ORDER_JOB)

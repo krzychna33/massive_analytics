@@ -5,12 +5,14 @@ import { ConfigModule } from '@nestjs/config';
 import { LoggerModule } from './logger/logger.module';
 import environment from './config/environment';
 import { RedisModule } from '@liaoliaots/nestjs-redis';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       load: [environment],
     }),
+    ScheduleModule.forRoot(),
     DataSourceModule,
     OrdersModule,
     LoggerModule,

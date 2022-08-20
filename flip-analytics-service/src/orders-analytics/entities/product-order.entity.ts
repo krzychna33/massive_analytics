@@ -30,9 +30,6 @@ export class ProductOrder {
   quantity: number;
 
   @Column({ type: 'decimal' })
-  unitPrice: number;
-
-  @Column({ type: 'decimal' })
   totalPrice: number;
 
   @ManyToOne((type) => Product)

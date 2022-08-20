@@ -134,7 +134,6 @@ export class NewOrderProcessor {
       productOrder.productId = item.product.id;
       productOrder.purchaseDate = DateTime.fromISO(order.date).toJSDate();
       productOrder.quantity = item.quantity;
-      productOrder.unitPrice = Number(item.product.price);
       productOrder.totalPrice =
         Number(item.product.price) * Number(item.quantity);
 

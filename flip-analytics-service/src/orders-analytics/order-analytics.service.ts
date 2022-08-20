@@ -12,7 +12,7 @@ export class OrderAnalyticsService {
   async getTopProfitableProducts() {
     const record = await this.productStatisticRepository.find({
       order: { totalSaleValue: 'DESC' },
-      take: 1,
+      take: 10,
     });
 
     return record;
@@ -21,7 +21,7 @@ export class OrderAnalyticsService {
   async getTopBoughtProducts() {
     const record = await this.productStatisticRepository.find({
       order: { totalOrderCount: 'DESC' },
-      take: 1,
+      take: 10,
     });
 
     return record;
@@ -30,7 +30,7 @@ export class OrderAnalyticsService {
   async getTopBoughtProductsYesterday() {
     const record = await this.productStatisticRepository.find({
       order: { totalOrderCountLastDay: 'DESC' },
-      take: 1,
+      take: 10,
     });
 
     return record;

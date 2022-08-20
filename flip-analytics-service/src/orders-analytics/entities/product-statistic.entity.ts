@@ -10,7 +10,7 @@ import { Product } from './product.entity';
 
 @Entity()
 export class ProductStatistic {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()

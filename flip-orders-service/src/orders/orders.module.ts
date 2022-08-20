@@ -4,10 +4,12 @@ import { DataSourceModule } from '../data-source/data-source.module';
 import { BullModule } from '@nestjs/bull';
 import { ReadOrdersProcessor } from './read-orders.processor';
 import { QueuesEnum } from '../common/consts/queues.enum';
+import { LoggerModule } from '../logger/logger.module';
 
 @Module({
   imports: [
     DataSourceModule,
+    LoggerModule,
     BullModule.registerQueue({
       name: QueuesEnum.INTERNAL_ORDERS_READ_QUEUE,
       redis: {
