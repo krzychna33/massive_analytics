@@ -13,9 +13,11 @@ The goal has been achieved by creating ProductStatistic table which stores curre
 Redis Storage service. In general this orders service simulates service where real endpoints like `POST /order` could live.
 Nevertheless currently this service fetches data from external source. As i described before it is asynchronous process. Data fetch
 is triggered every app start and by cron EVERY MINUTE, but if in queue already is a job which fetches orders, new job won't be added.
+When order has been fetched, OrdersService pushes new job (**event**) to Redis Bus which is asynchronous communication bus between 
+OrdersService and AnalyticsService.
 
 
-**Analytics Service** is a place where data is being processed. Here appropriate records in database are being created and updated.
+**Analytics Service** is a place where data is being processed. This service receives events placed by OrdersService. Here appropriate records in database are being created and updated.
 This service also merges duplicated products in order's item array.
 Analytics service exposes also three endpoints which was required.
 - `GET /order-analytics/top-profitable-products`
