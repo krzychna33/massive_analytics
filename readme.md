@@ -84,9 +84,14 @@ I have some feedback for data source api:
 
 ## Running locally
 
-1. Create .env file in both services.
-2. Fill them with necessary variables (according to validator
-3. Install npm packages with both services - `npm i`
+1. Clone repository
+2. Create .env files and fill them with necessary variables (according to validators)
+   1. `touch .env` (inside `flip-analytics-service` directory)
+   2. `touch .env` (inside `flip-orders-service` directory)
+   3. Fill created files with env variables `VARIABLE=VALUE`. All necessary variables for given service could be found in `<service-directory>/src/config/dto/environment.dto.ts`.
+3. Install npm packages with npm in both services
+   1. `npm i` inside (inside `flip-analytics-service` directory)
+   2. `npm i` inside (inside `flip-orders-service` directory)
 4. Run
 
 ```shell

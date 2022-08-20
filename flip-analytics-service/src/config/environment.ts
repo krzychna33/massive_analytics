@@ -6,7 +6,6 @@ export default (): Environment => {
 
   const environment = {
     nodeEnv: process.env.NODE_ENV as NODE_ENV,
-    dataSourceUrl: process.env.DATA_SOURCE_URL,
     dbHost: process.env.DB_HOST,
     dbPassword: process.env.DB_PASSWORD,
     dbUser: process.env.DB_USER,
