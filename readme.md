@@ -41,6 +41,7 @@ Of course there is **A LOT OF THINGS TO DO**:
 
 I'm aware of:
 * lack of testing (unit and integration)
+* lack of mechanism which will retry failed jobs (events) (currently app will try to process job n times, and after that job will be marked as failed)
 * messy codebase
 * lack of logging
 * lack of complex documentation
